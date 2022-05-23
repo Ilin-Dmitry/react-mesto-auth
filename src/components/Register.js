@@ -1,6 +1,13 @@
+import Header from "./Header";
+import AuthForm from './AuthForm'
+
 function Register () {
   return (
-    <p style={{fontSize: '24px', color: 'white'}}>Это заглушка страницы регистрации</p>
+    <>
+      <Header><p>Text</p></Header>
+      <AuthForm heading="Регистрация" buttonName="Зарегистрироваться"><p style={{fontSize: '14px'}} className="auth__subtext">Уже зарегистрированы? Войти</p></AuthForm>
+    </>
+
   )
 }
 

@@ -1,10 +1,11 @@
 import Header from "./Header";
+import AuthForm from './AuthForm'
 
 function Login () {
   return (
     <>
-      <Header></Header>
-      <p style={{color: 'white', fontSize: '24px'}}>Заглушка логина</p>
+      <Header><p>Text</p></Header>
+      <AuthForm heading="Вход" buttonName="Войти"></AuthForm>
     </>
 
   )
