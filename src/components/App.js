@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -9,6 +10,9 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -19,6 +23,9 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
+  ////////////////////
+  const loggedIn = false;
+  ////////////////////
 
   function handleEditProfileClick () {
     setIsEditProfilePopupOpen(true);
@@ -117,29 +124,37 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <div className="page">
+      <div className="page__container">
 
-      <div className="page">
-        <div className="page__container">
+        <Switch>
+          <Route path="/sign-in"><Login /></Route>
+          <Route path="/sign-up"><Register /></Route>
+          <ProtectedRoute exact path="/">
+            <CurrentUserContext.Provider value={currentUser}>
 
-          <Header />
-          <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onSetCards={handleSetCards} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
-          <Footer />
 
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}></EditProfilePopup>
+                  <Header />
+                  <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onSetCards={handleSetCards} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
+                  <Footer />
 
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}></EditAvatarPopup>
+                  <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}></EditProfilePopup>
 
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}></AddPlacePopup>
+                  <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}></EditAvatarPopup>
 
-          <PopupWithForm name="removeConfirm" title="Вы уверены?" />
+                  <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}></AddPlacePopup>
 
-          <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+                  <PopupWithForm name="removeConfirm" title="Вы уверены?" />
 
-        </div>
+                  <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+
+
+
+            </CurrentUserContext.Provider>
+          </ProtectedRoute>
+        </Switch>
       </div>
-
-    </CurrentUserContext.Provider>
+    </div>
   );
 }
 
