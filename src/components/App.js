@@ -24,7 +24,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
   ////////////////////
-  const loggedIn = false;
+  const [loggedIn, setLoggedIn] = useState(false)
   ////////////////////
 
   function handleEditProfileClick () {
@@ -130,7 +130,7 @@ function App() {
         <Switch>
           <Route path="/sign-in"><Login /></Route>
           <Route path="/sign-up"><Register /></Route>
-          <ProtectedRoute exact path="/">
+          <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <CurrentUserContext.Provider value={currentUser}>
 
 
@@ -152,6 +152,9 @@ function App() {
 
             </CurrentUserContext.Provider>
           </ProtectedRoute>
+          <Route path="*">
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="sign-in"/> }
+          </Route>
         </Switch>
       </div>
     </div>
