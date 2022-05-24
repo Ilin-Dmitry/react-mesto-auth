@@ -1,11 +1,12 @@
 import Header from "./Header";
-import AuthForm from './AuthForm'
+import AuthForm from './AuthForm';
+import {Link} from 'react-router-dom';
 
 function Register () {
   return (
     <>
-      <Header><p>Text</p></Header>
-      <AuthForm heading="Регистрация" buttonName="Зарегистрироваться"><p style={{fontSize: '14px'}} className="auth__subtext">Уже зарегистрированы? Войти</p></AuthForm>
+      <Header><Link to="/sign-in" className="header__link">Войти</Link></Header>
+      <AuthForm heading="Регистрация" buttonName="Зарегистрироваться"><Link to="sign-in" className="auth__link">Уже зарегистрированы? Войти</Link></AuthForm>
     </>
 
   )

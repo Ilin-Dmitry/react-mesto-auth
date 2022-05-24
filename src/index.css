@@ -3,6 +3,7 @@
 @import url(./blocks/page/page.css);
 @import url(./blocks/page/__container/page__container.css);
 @import url(./blocks/header/header.css);
+@import url(./blocks/header/__link/header__link.css);
 @import url(./blocks/logo/logo.css);
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar/profile__avatar.css);
@@ -37,3 +38,9 @@
 @import url(./blocks/popup/__submit-button/_sec/popup__submit-button_sec_remove-confirm.css);
 @import url(./blocks/popup/__close-button/popup__close-button.css);
 @import url(./blocks/popup/__error/popup__error.css);
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__form/auth__form.css);
+@import url(./blocks/auth/__form-heading/auth__form-heading.css);
+@import url(./blocks/auth/__form-input/auth__form-input.css);
+@import url(./blocks/auth/__submit-button/auth__submit-button.css);
+@import url(./blocks/auth/__link/auth__link.css);
