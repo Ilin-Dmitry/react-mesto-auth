@@ -13,6 +13,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
+import { getContentAPI } from './Auth';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
   ////////////////////
   const [loggedIn, setLoggedIn] = useState(false)
   ////////////////////
+  const history = useHistory()
 
   function handleEditProfileClick () {
     setIsEditProfilePopupOpen(true);
@@ -123,12 +125,45 @@ function App() {
       })
   }
 
+  function handleLoggedIn () {
+    setLoggedIn('true')
+  }
+
+  function checkToken() {
+    const token = localStorage.getItem('token')
+    console.log(token);
+    if (token) {
+      getContentAPI(token)
+      .then((res) => {
+        console.log('res from checkToken =>', res)
+        setLoggedIn('true')
+        history.push('/')
+      })
+    }
+  }
+
+    // if (token) {
+    //   getContentAPI(token)
+    //   .then((res) => {
+    //     if(res) {
+    //       console.log('res res',res)
+    //     } else {
+    //       console.log('никаких res')
+    //     }
+    //   })
+    // }
+  // }
+
+  useEffect(() => {
+    checkToken()
+  }, [loggedIn])
+
   return (
     <div className="page">
       <div className="page__container">
 
         <Switch>
-          <Route path="/sign-in"><Login /></Route>
+          <Route path="/sign-in"><Login handleLoggedIn={handleLoggedIn}/></Route>
           <Route path="/sign-up"><Register /></Route>
           <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <CurrentUserContext.Provider value={currentUser}>

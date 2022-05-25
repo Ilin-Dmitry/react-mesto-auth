@@ -10,7 +10,7 @@ function Register () {
     .then((res) => {
       console.log('res from handleRegistration =>', res.data)
       if(res) {
-        history.push('/login')
+        history.push('/sign-in')
       }
     })
   }
