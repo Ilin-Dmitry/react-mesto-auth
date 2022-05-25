@@ -1,7 +1,6 @@
-import { registerAPI } from "./Auth";
 import {useState} from 'react';
 
-function AuthForm ({heading, buttonName, children}) {
+function AuthForm ({heading, buttonName, children, onSubmit}) {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -16,7 +15,7 @@ function AuthForm ({heading, buttonName, children}) {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerAPI(formData.email, formData.password)
+    onSubmit(formData.email, formData.password)
   }
   return (
     <section  className="auth">

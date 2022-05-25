@@ -14,12 +14,30 @@ export function registerAPI (email, password) {
     }
   })
   .then((res) => {
-    console.log('from API =>', res)
+    console.log('from registerAPI =>', res)
   })
   .catch ((err) => {
     console.log(err)
   })
 }
 
-///////auth/local/register
-///////////'Accept': 'application/json',
+export function loginAPI (email, password) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email, password})
+  })
+  .then((res) => {
+    if(res.ok) {
+      return res.json()
+    }
+  })
+  .then((res) => {
+    console.log('from loginAPI =>', res)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
