@@ -15,6 +15,7 @@ export function registerAPI (email, password) {
   })
   .then((res) => {
     console.log('from registerAPI =>', res)
+    return res
   })
   .catch ((err) => {
     console.log(err)
