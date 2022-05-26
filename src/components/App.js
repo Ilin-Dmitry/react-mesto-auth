@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Link, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -26,6 +26,7 @@ function App() {
   const [cards, setCards] = useState([])
   ////////////////////
   const [loggedIn, setLoggedIn] = useState(false)
+  const [userEmail, setUserEmail] = useState('')
   ////////////////////
   const history = useHistory()
 
@@ -125,7 +126,8 @@ function App() {
       })
   }
 
-  function handleLoggedIn () {
+  function handleLoggedIn (email) {
+    setUserEmail(email)
     setLoggedIn('true')
   }
 
@@ -136,27 +138,22 @@ function App() {
       getContentAPI(token)
       .then((res) => {
         console.log('res from checkToken =>', res)
+        setUserEmail(res.email)
         setLoggedIn('true')
         history.push('/')
       })
     }
   }
 
-    // if (token) {
-    //   getContentAPI(token)
-    //   .then((res) => {
-    //     if(res) {
-    //       console.log('res res',res)
-    //     } else {
-    //       console.log('никаких res')
-    //     }
-    //   })
-    // }
-  // }
 
   useEffect(() => {
     checkToken()
-  }, [loggedIn])
+  })
+
+  function signOut () {
+    localStorage.removeItem('token');
+    history.push('/sign-in')
+  }
 
   return (
     <div className="page">
@@ -169,7 +166,12 @@ function App() {
             <CurrentUserContext.Provider value={currentUser}>
 
 
-                  <Header />
+                  <Header>
+                    <nav>
+                      <Link to="#" className="header__link">{userEmail}</Link>
+                      <Link to="#" className="header__link" onClick={signOut}>Выйти</Link>
+                    </nav>
+                  </Header>
                   <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onSetCards={handleSetCards} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
                   <Footer />
 
