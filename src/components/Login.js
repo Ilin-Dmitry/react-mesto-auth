@@ -13,7 +13,7 @@ function Login ({handleLoggedIn}) {
     })
     .then(() => {
       console.log('localStorage =>', localStorage)
-      handleLoggedIn()
+      handleLoggedIn(email)
       history.push('/');
     })
   }
