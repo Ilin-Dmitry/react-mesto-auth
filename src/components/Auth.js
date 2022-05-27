@@ -1,4 +1,11 @@
 const BASE_URL = 'https://auth.nomoreparties.co';
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json()
+  } else {
+    return Promise.reject(res.status)
+  }
+}
 
 export function registerAPI (email, password) {
   return fetch (`${BASE_URL}/signup`, {
@@ -8,14 +15,7 @@ export function registerAPI (email, password) {
     },
     body: JSON.stringify({email, password})
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-  })
-  .catch ((err) => {
-    console.log(err)
-  })
+  .then(checkResponse)
 }
 
 export function loginAPI (email, password) {
@@ -26,14 +26,7 @@ export function loginAPI (email, password) {
     },
     body: JSON.stringify({email, password})
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json()
-    }
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+  .then(checkResponse)
 }
 
 export function getContentAPI (token) {

@@ -16,6 +16,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { getContentAPI } from './Auth';
 
 function App() {
+  const history = useHistory()
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -27,8 +28,27 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
   const [userEmail, setUserEmail] = useState('')
+  ////////////////////
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+  function handleTooltipOpen () {
+    setIsInfoTooltipOpen(true);
+  }
+  function handleTooltipClose() {
+    setIsInfoTooltipOpen(false)
+    if (isRequestSuccessful) {
+      {history.push('/sign-in')}
+    }
+  }
+  function handleRequestOk() {
+    setIsRequestSuccessful(true)
+  }
+  function handleRequestErr() {
+    setIsRequestSuccessful(false)
+  }
+  ////////////////////
 
-  const history = useHistory()
+
 
   function handleEditProfileClick () {
     setIsEditProfilePopupOpen(true);
@@ -156,8 +176,8 @@ function App() {
       <div className="page__container">
 
         <Switch>
-          <Route path="/sign-in"><Login handleLoggedIn={handleLoggedIn}/></Route>
-          <Route path="/sign-up"><Register /></Route>
+          <Route path="/sign-in"><Login handleLoggedIn={handleLoggedIn} isInfoTooltipOpen={isInfoTooltipOpen} handleTooltipOpen={handleTooltipOpen} handleTooltipClose={handleTooltipClose} handleRequestErr={handleRequestErr} isRequestSuccessful={isRequestSuccessful}/></Route>
+          <Route path="/sign-up"><Register isInfoTooltipOpen={isInfoTooltipOpen} handleTooltipOpen={handleTooltipOpen} handleTooltipClose={handleTooltipClose} handleRequestOk={handleRequestOk} handleRequestErr={handleRequestErr} isRequestSuccessful={isRequestSuccessful}/></Route>
           <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <CurrentUserContext.Provider value={currentUser}>
                   <Header>
