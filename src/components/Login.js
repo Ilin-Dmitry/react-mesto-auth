@@ -8,11 +8,9 @@ function Login ({handleLoggedIn}) {
   function handleLogin (email, password) {
     loginAPI(email, password)
     .then((res) => {
-      console.log('res from handleLogin =>',res)
       localStorage.setItem('token', res.token)
     })
     .then(() => {
-      console.log('localStorage =>', localStorage)
       handleLoggedIn(email)
       history.push('/');
     })

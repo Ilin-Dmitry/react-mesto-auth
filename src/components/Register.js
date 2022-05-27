@@ -9,20 +9,16 @@ function Register () {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false)
   function handleTooltipOpen () {
-    console.log('сработало')
     setIsInfoTooltipOpen(true);
   }
   function handleTooltipClose () {
     setIsInfoTooltipOpen(false)
     if (isSuccessful) {history.push('/sign-in')}
-    // history.push('/sign-in')
   }
   const history = useHistory();
   function handleRegistration (email, password) {
     registerAPI(email, password)
     .then((res) => {
-      console.log('res from handleRegistration =>', res.data)
-
       if(res) {
         setIsSuccessful(true)
         handleTooltipOpen()
@@ -31,7 +27,6 @@ function Register () {
     .catch(() => {
       setIsSuccessful(false)
       setIsInfoTooltipOpen(true)
-      console.log('Какая-то ошибка')
     })
   }
   return (

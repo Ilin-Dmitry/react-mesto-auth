@@ -24,10 +24,10 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
-  ////////////////////
+
   const [loggedIn, setLoggedIn] = useState(false)
   const [userEmail, setUserEmail] = useState('')
-  ////////////////////
+
   const history = useHistory()
 
   function handleEditProfileClick () {
@@ -118,8 +118,7 @@ function App() {
         setCards([res, ...cards])
       })
       .then(() =>
-        {console.log('Закрываю')
-        closeAllPopups()}
+        {closeAllPopups()}
       )
       .catch(error => {
         console.log(`Ошибка ${error}`)
@@ -133,18 +132,15 @@ function App() {
 
   function checkToken() {
     const token = localStorage.getItem('token')
-    console.log(token);
     if (token) {
       getContentAPI(token)
       .then((res) => {
-        console.log('res from checkToken =>', res)
         setUserEmail(res.email)
         setLoggedIn('true')
         history.push('/')
       })
     }
   }
-
 
   useEffect(() => {
     checkToken()
@@ -164,11 +160,9 @@ function App() {
           <Route path="/sign-up"><Register /></Route>
           <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <CurrentUserContext.Provider value={currentUser}>
-
-
                   <Header>
                     <nav>
-                      <Link to="#" className="header__link">{userEmail}</Link>
+                      <p className="header__text">{userEmail}</p>
                       <Link to="#" className="header__link" onClick={signOut}>Выйти</Link>
                     </nav>
                   </Header>
@@ -184,9 +178,6 @@ function App() {
                   <PopupWithForm name="removeConfirm" title="Вы уверены?" />
 
                   <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
-
-
-
             </CurrentUserContext.Provider>
           </ProtectedRoute>
           <Route path="*">

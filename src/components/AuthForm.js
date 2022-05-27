@@ -11,7 +11,6 @@ function AuthForm ({heading, buttonName, children, onSubmit}) {
       ...prev,
       [name]: value
     }))
-    console.log('formData =>', formData[name])
   }
   const handleSubmit = (e) => {
     e.preventDefault();

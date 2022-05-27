@@ -13,10 +13,6 @@ export function registerAPI (email, password) {
       return res.json()
     }
   })
-  .then((res) => {
-    console.log('from registerAPI =>', res)
-    return res
-  })
   .catch ((err) => {
     console.log(err)
   })
@@ -34,10 +30,6 @@ export function loginAPI (email, password) {
     if(res.ok) {
       return res.json()
     }
-  })
-  .then((res) => {
-    console.log('from loginAPI =>', res)
-    return res
   })
   .catch((err) => {
     console.log(err)
@@ -58,7 +50,6 @@ export function getContentAPI (token) {
     }
   })
   .then((res) => {
-    console.log('ответ из гет', res.data)
     return res.data
   })
   .catch((err) => {
