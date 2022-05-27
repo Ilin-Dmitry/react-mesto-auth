@@ -7,13 +7,15 @@ import {useState, } from 'react';
 
 function Register () {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false)
   function handleTooltipOpen () {
     console.log('сработало')
     setIsInfoTooltipOpen(true);
   }
   function handleTooltipClose () {
     setIsInfoTooltipOpen(false)
-    history.push('/sign-in')
+    if (isSuccessful) {history.push('/sign-in')}
+    // history.push('/sign-in')
   }
   const history = useHistory();
   function handleRegistration (email, password) {
@@ -22,15 +24,21 @@ function Register () {
       console.log('res from handleRegistration =>', res.data)
 
       if(res) {
-         handleTooltipOpen()
+        setIsSuccessful(true)
+        handleTooltipOpen()
       }
+    })
+    .catch(() => {
+      setIsSuccessful(false)
+      setIsInfoTooltipOpen(true)
+      console.log('Какая-то ошибка')
     })
   }
   return (
     <>
       <Header><Link to="/sign-in" className="header__link">Войти</Link></Header>
       <AuthForm heading="Регистрация" buttonName="Зарегистрироваться" onSubmit={handleRegistration}><Link to="sign-in" className="auth__link">Уже зарегистрированы? Войти</Link></AuthForm>
-      <InfoTooltip isOpen={isInfoTooltipOpen} onClose={handleTooltipClose}/>
+      <InfoTooltip isOpen={isInfoTooltipOpen} onClose={handleTooltipClose} isSuccessful={isSuccessful} />
     </>
 
   )
