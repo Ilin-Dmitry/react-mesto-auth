@@ -13,7 +13,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
-import { getContentAPI } from './Auth';
+import { checkTokenAPI } from '../utils/Auth';
 
 function App() {
   const history = useHistory()
@@ -28,12 +28,14 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
   const [userEmail, setUserEmail] = useState('')
-  ////////////////////
+
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+
   function handleTooltipOpen () {
     setIsInfoTooltipOpen(true);
   }
+
   function handleTooltipClose() {
     setIsInfoTooltipOpen(false)
     if (isRequestSuccessful) {
@@ -46,9 +48,6 @@ function App() {
   function handleRequestErr() {
     setIsRequestSuccessful(false)
   }
-  ////////////////////
-
-
 
   function handleEditProfileClick () {
     setIsEditProfilePopupOpen(true);
@@ -153,18 +152,21 @@ function App() {
   function checkToken() {
     const token = localStorage.getItem('token')
     if (token) {
-      getContentAPI(token)
+      checkTokenAPI(token)
       .then((res) => {
         setUserEmail(res.email)
         setLoggedIn('true')
         history.push('/')
+      })
+      .catch(error => {
+        console.log(`Ошибка ${error}`)
       })
     }
   }
 
   useEffect(() => {
     checkToken()
-  })
+  }, [])
 
   function signOut () {
     localStorage.removeItem('token');

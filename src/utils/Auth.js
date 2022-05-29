@@ -29,7 +29,7 @@ export function loginAPI (email, password) {
   .then(checkResponse)
 }
 
-export function getContentAPI (token) {
+export function checkTokenAPI (token) {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
@@ -37,15 +37,8 @@ export function getContentAPI (token) {
         'Authorization' : `Bearer ${token}`
     }
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json()
-    }
-  })
+  .then(checkResponse)
   .then((res) => {
     return res.data
-  })
-  .catch((err) => {
-    return console.log('err',err)
   })
 }

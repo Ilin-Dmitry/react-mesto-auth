@@ -2,8 +2,7 @@ import Header from "./Header";
 import AuthForm from './AuthForm';
 import InfoTooltip from "./InfoTooltip";
 import {Link} from 'react-router-dom';
-import {registerAPI} from './Auth';
-// import {useState, } from 'react';
+import {registerAPI} from '../utils/Auth';
 
 function Register ({isInfoTooltipOpen, handleTooltipOpen, handleTooltipClose, handleRequestOk, handleRequestErr, isRequestSuccessful}) {
 
@@ -19,7 +18,7 @@ function Register ({isInfoTooltipOpen, handleTooltipOpen, handleTooltipClose, ha
         handleTooltipOpen()
       }
     })
-    .catch((err) => {
+    .catch(() => {
       handleRequestErr()
       handleTooltipOpen()
     })

@@ -1,7 +1,7 @@
 import Header from "./Header";
 import AuthForm from './AuthForm';
 import {Link, useHistory} from 'react-router-dom';
-import {loginAPI} from './Auth';
+import {loginAPI} from '../utils/Auth';
 import InfoTooltip from "./InfoTooltip";
 
 function Login ({handleLoggedIn, isInfoTooltipOpen, handleTooltipClose, isRequestSuccessful, handleRequestErr, handleTooltipOpen}) {
