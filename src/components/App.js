@@ -14,6 +14,7 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import { checkTokenAPI } from '../utils/Auth';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const history = useHistory()
@@ -200,12 +201,15 @@ function App() {
                   <PopupWithForm name="removeConfirm" title="Вы уверены?" />
 
                   <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+
+
             </CurrentUserContext.Provider>
           </ProtectedRoute>
           <Route path="*">
             {loggedIn ? <Redirect to="/" /> : <Redirect to="sign-in"/> }
           </Route>
         </Switch>
+        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={handleTooltipClose} isSuccessful={isRequestSuccessful}/>
       </div>
     </div>
   );
