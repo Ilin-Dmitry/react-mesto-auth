@@ -33,6 +33,22 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.link;
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if(isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen])
+
   function handleTooltipOpen () {
     setIsInfoTooltipOpen(true);
   }
@@ -40,7 +56,7 @@ function App() {
   function handleTooltipClose() {
     setIsInfoTooltipOpen(false)
     if (isRequestSuccessful) {
-      {history.push('/sign-in')}
+      history.push('/sign-in')
     }
   }
   function handleRequestOk() {
@@ -179,8 +195,8 @@ function App() {
       <div className="page__container">
 
         <Switch>
-          <Route path="/sign-in"><Login handleLoggedIn={handleLoggedIn} isInfoTooltipOpen={isInfoTooltipOpen} handleTooltipOpen={handleTooltipOpen} handleTooltipClose={handleTooltipClose} handleRequestErr={handleRequestErr} isRequestSuccessful={isRequestSuccessful}/></Route>
-          <Route path="/sign-up"><Register isInfoTooltipOpen={isInfoTooltipOpen} handleTooltipOpen={handleTooltipOpen} handleTooltipClose={handleTooltipClose} handleRequestOk={handleRequestOk} handleRequestErr={handleRequestErr} isRequestSuccessful={isRequestSuccessful}/></Route>
+          <Route path="/sign-in"><Login handleLoggedIn={handleLoggedIn}  handleTooltipOpen={handleTooltipOpen} handleRequestErr={handleRequestErr} /></Route>
+          <Route path="/sign-up"><Register  handleTooltipOpen={handleTooltipOpen} handleRequestOk={handleRequestOk} handleRequestErr={handleRequestErr}/></Route>
           <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <CurrentUserContext.Provider value={currentUser}>
                   <Header>
