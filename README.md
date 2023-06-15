@@ -5,4 +5,5 @@
 Весь функционал написан на React, настроены роуты, применена верстка по БЭМ. Все запросы на авторизацию, регистрацию и проверку токена работают через сервис https://auth.nomoreparties.co .
 
 **Приложение находится по адресу:** https://ilin-dmitry.github.io/react-mesto-auth/
+
 **Ссылка на репозиторий:** https://github.com/Ilin-Dmitry/react-mesto-auth
