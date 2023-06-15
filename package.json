@@ -1,6 +1,6 @@
 {
   "name": "mesto-react",
-  "homepage": "http://ilin-dmitry.github.io/react-mesto-auth/sign-in",
+  "homepage": "http://ilin-dmitry.github.io/react-mesto-auth",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
